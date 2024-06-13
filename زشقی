@@ -1,0 +1,56 @@
+#include <iostream>
+#include <cstring>
+
+bool validatePrefix(std::string cardNumber) {
+    std::vector<std::string> validPrefixes = {"1234", "5678", "9101"}; // اعتبار سنجی پیش شماره کارت
+
+    for (const auto &prefix : validPrefixes) {
+        if (cardNumber.find(prefix) == 0) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+int main() {
+    std::string cardNumber;
+    std::string enteredNumbers;
+    const int cardLength = 16;
+    const int validationLength = 4;
+    int validNumbersCount = 0;
+
+    while (cardNumber.length() < cardLength) {
+        char newDigit;
+        std::cout << "Enter a digit for card number: ";
+        std::cin >> newDigit;
+
+        if (isdigit(newDigit)) {
+            cardNumber += newDigit;
+            enteredNumbers += newDigit;
+
+            if (cardNumber.length() >= validationLength && validNumbersCount == 0) {
+                if (validatePrefix(cardNumber.substr(0, validationLength))) {
+                    std::cout << "First 4 digits validated successfully." << std::endl;
+                    validNumbersCount++;
+                } else {
+                    std::cout << "Invalid card prefix. Restart the process." << std::endl;
+                    cardNumber = "";
+                    enteredNumbers = "";
+                }
+            }
+
+            std::cout << "Entered numbers so far: " << enteredNumbers << std::endl;
+        } else {
+            std::cout << "Error: Please enter a valid digit." << std::endl;
+        }
+    }
+
+    std::cout << "Card Number: ";
+    for (int i = 0; i < cardLength; i += 4) {
+        std::cout << cardNumber.substr(i, 4) << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
