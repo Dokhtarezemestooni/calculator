@@ -1,0 +1,57 @@
+#include <iostream>
+
+class Time {
+private:
+    int hours;
+    int minutes;
+    int seconds;
+
+public:
+    Time(int h, int m, int s) {
+        if (h >= 0 && h < 24 && m >= 0 && m < 60 && s >= 0 && s < 60) {
+            hours = h;
+            minutes = m;
+            seconds = s;
+        } else {
+            std::cout << "Invalid time values. Please enter valid time values." << std::endl;
+            // Set default values
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        }
+    }
+
+    Time(int totalSeconds) {
+        hours = totalSeconds / 3600;
+        totalSeconds %= 3600;
+        minutes = totalSeconds / 60;
+        seconds = totalSeconds % 60;
+    }
+
+    void printTime() {
+        std::cout << hours << ":" << minutes << ":" << seconds << std::endl;
+    }
+
+    int calculateDifference(Time t) {
+        int thisTotalSeconds = hours * 3600 + minutes * 60 + seconds;
+        int tTotalSeconds = t.hours * 3600 + t.minutes * 60 + t.seconds;
+
+        return std::abs(thisTotalSeconds - tTotalSeconds);
+    }
+};
+
+int main() {
+    Time t1(10, 30, 45);
+    Time t2(5, 15, 20);
+
+    t1.printTime();
+    t2.printTime();
+
+    int difference = t1.calculateDifference(t2);
+    std::cout << "Difference in seconds: " << difference << std::endl;
+
+    Time t3(3723); // 1 hour, 2 minutes, 3 seconds
+    t3.printTime();
+
+    return 0;
+}
