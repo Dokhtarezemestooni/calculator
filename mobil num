@@ -1,0 +1,37 @@
+#include <iostream>
+#include <string>
+
+bool validateMobileNumber(std::string mobileNumber) {
+    if (mobileNumber.length() != 11) {
+        return false;
+    }
+
+    if (mobileNumber.substr(0, 2) != "09") {
+        return false;
+    }
+
+    for (char digit : mobileNumber) {
+        if (!std::isdigit(digit)) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    std::string mobileNumber;
+
+    do {
+        std::cout << "Enter your mobile number (e.g., 09123456789): ";
+        std::cin >> mobileNumber;
+
+        if (!validateMobileNumber(mobileNumber)) {
+            std::cout << "Invalid mobile number. Please enter a valid mobile number." << std::endl;
+        }
+    } while (!validateMobileNumber(mobileNumber));
+
+    std::cout << "Valid mobile number entered: " << mobileNumber << std::endl;
+
+    return 0;
+}
