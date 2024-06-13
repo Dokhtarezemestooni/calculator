@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <cctype>
+
+int main() {
+    std::string password;
+    std::cout << "Enter your password: ";
+    std::cin >> password;
+
+    int length = password.length();
+    int digitCount = 0, specialCharCount = 0, uppercaseCount = 0, lowercaseCount = 0;
+    
+    for (char c : password) {
+        if (isdigit(c)) {
+            digitCount++;
+        } else if (ispunct(c)) {
+            specialCharCount++;
+        } else if (isupper(c)) {
+            uppercaseCount++;
+        } else if (islower(c)) {
+            lowercaseCount++;
+        }
+    }
+
+    float strength = 0;
+
+    if (length >= 6) {
+        strength += 20;
+    }
+    if (digitCount > 0) {
+        strength += 20;
+    }
+    if (specialCharCount > 0) {
+        strength += 20;
+    }
+    if (uppercaseCount > 0) {
+        strength += 20;
+    }
+    if (lowercaseCount > 0) {
+        strength += 20;
+    }
+
+    std::cout << "Password Strength: " << strength << "%" << std::endl;
+
+    return 0;
+}
