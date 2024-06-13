@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string>
+
+bool validateEmail(std::string email) {
+    size_t atPos = email.find('@');
+    size_t dotPos = email.rfind('.');
+
+    
+    return (atPos != std::string::npos && dotPos != std::string::npos && atPos < dotPos);
+}
+
+int main() {
+    std::string email;
+
+    do {
+        std::cout << "Enter your email address: ";
+        std::cin >> email;
+
+        if (!validateEmail(email)) {
+            std::cout << "Invalid email address. Please enter a valid email address." << std::endl;
+        }
+    } while (!validateEmail(email));
+
+    std::cout << "Valid email address entered: " << email << std::endl;
+
+    return 0;
+}
