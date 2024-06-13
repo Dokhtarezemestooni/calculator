@@ -1,0 +1,79 @@
+#include <iostream>
+
+class Calculator {
+private:
+    int num1, num2;
+    char op;
+
+public:
+    Calculator(int n1, char oper, int n2) : num1(n1), op(oper), num2(n2) {}
+
+    int add() { return num1 + num2; }
+
+    int subtract() { return num1 - num2; }
+
+    int multiply() { return num1 * num2; }
+
+    int power(int base, int exponent) {
+        if (exponent == 0)
+            return 1;
+        else
+            return base * power(base, exponent - 1);
+    }
+
+    float divide() {
+        if (num2 != 0)
+            return static_cast<float>(num1) / num2;
+        else {
+            std::cout << "Error: Cannot divide by zero!" << std::endl;
+            return 0;
+        }
+    }
+
+    int modulus() {
+        if (num2 != 0)
+            return num1 % num2;
+        else {
+            std::cout << "Error: Cannot find modulus by zero!" << std::endl;
+            return 0;
+        }
+    }
+
+    void execute() {
+        switch(op) {
+            case '+':
+                std::cout << "Result: " << add() << std::endl;
+                break;
+            case '-':
+                std::cout << "Result: " << subtract() << std::endl;
+                break;
+            case '*':
+                std::cout << "Result: " << multiply() << std::endl;
+                break;
+            case '/':
+                std::cout << "Result: " << divide() << std::endl;
+                break;
+            case '%':
+                std::cout << "Result: " << modulus() << std::endl;
+                break;
+            case '^':
+                std::cout << "Result: " << power(num1, num2) << std::endl;
+                break;
+            default:
+                std::cout << "Error: Invalid operator!" << std::endl;
+        }
+    }
+};
+
+int main() {
+    int num1, num2;
+    char op;
+
+    std::cout << "Enter first number, operator, and second number: ";
+    std::cin >> num1 >> op >> num2;
+
+    Calculator calculator(num1, op, num2);
+    calculator.execute();
+
+    return 0;
+}
