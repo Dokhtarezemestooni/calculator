@@ -1,0 +1,35 @@
+#include <iostream>
+#include <string>
+
+int main() {
+    std::string menu[4] = {"burger", "pizza", "salad", "pasta"};
+    double prices[4] = {10.0, 12.0, 8.0, 11.0};
+
+    std::string userChoice;
+    double totalBill = 0.0;
+
+    // Get user's menu choice
+    std::cout << "Welcome to the restaurant! Please choose from the menu (burger, pizza, salad, pasta): ";
+    std::cin >> userChoice;
+
+    // Determine the price of the chosen item
+    double itemPrice = 0.0;
+    int index = -1;
+    for (int i = 0; i < 4; ++i) {
+        if (menu[i] == userChoice) {
+            itemPrice = prices[i];
+            index = i;
+            break;
+        }
+    }
+
+    // Calculate total bill with value-added tax
+    if (index != -1) {
+        totalBill = itemPrice * 1.09; // Adding 9% value-added tax
+        std::cout << "You have chosen " << userChoice << ". Your total bill with 9% value-added tax is: $" << totalBill << std::endl;
+    } else {
+        std::cout << "Invalid choice. Please choose from the menu." << std::endl;
+    }
+
+    return 0;
+}
